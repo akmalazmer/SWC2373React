@@ -1,0 +1,50 @@
+
+<!--Can you render the prop FancyLink as it is, without having to do any condition / statement in the 
+render function-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX Spread within Parent Children</title>
+</head>
+<body>
+    <div id="app">
+    </div>
+    <script src = "react/build/react.js"></script>
+    <script src = "react/build/react-dom.js"></script>
+    <script src = "babel/browser.js"></script>
+    <script type = "text/babel">
+        var FancyLink = React.createClass({
+            render:function(){
+                var {size, ...attribs} = this.props;
+                var fontSize;
+                switch(size){
+                    case 'small':
+                        fontSize = '12px';
+                    case 'medium':
+                        fontSize = '30px';
+                }
+                var style = Object.assign({}, attribs.style,{fontSize: fontSize});
+
+                return <a {...attribs} style = {style}>{this.props.children}</a>;
+            }
+        });
+        
+
+        ReactDOM.render(
+            <div>
+                <FancyLink
+                href="https://example.org"
+                style = {{color:"red"}}
+                target = "blank"
+                size = "medium">
+                Hello using SPREAD with Parent Children
+                </FancyLink>
+            </div>,document.getElementById('app')
+        );
+    </script>
+</body>
+</html>
